@@ -48,7 +48,7 @@ public class SpaceFactory implements ModInitializer {
              *
              * @see io.github.reoseah.spacefactory.mixin.client.BlockRenderInfoMixin
              */
-            public static final Material MACHINE = new FabricMaterialBuilder(MapColor.IRON_GRAY).build();
+            public static final Material MACHINE = new FabricMaterialBuilder(MapColor.WHITE_GRAY).build();
         }
 
         public static final Block GENERATOR = new GeneratorBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 14 : 0));
@@ -58,7 +58,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Block GRINDER = new GrinderBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
         public static final Block EXTRACTOR = new GrinderBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
 
-        public static final Block REFINED_IRON_BLOCK = new Block(AbstractBlock.Settings.of(Material.METAL).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
+        public static final Block REFINED_IRON_BLOCK = new Block(AbstractBlock.Settings.of(Material.METAL, MapColor.WHITE_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
 
         private static AbstractBlock.Settings machineSettings() {
             return AbstractBlock.Settings.of(Materials.MACHINE).strength(3F).sounds(BlockSoundGroup.METAL);
@@ -88,6 +88,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item EXTRACTOR = new BlockItem(Blocks.EXTRACTOR, settings(TECHNOLOGY));
 
         public static final Item REFINED_IRON_INGOT = new Item(settings(TECHNOLOGY));
+        public static final Item REFINED_COPPER_INGOT = new Item(settings(TECHNOLOGY));
 
         public static final Item REFINED_IRON_BLOCK = new BlockItem(Blocks.REFINED_IRON_BLOCK, settings(DECORATION));
 
@@ -101,6 +102,7 @@ public class SpaceFactory implements ModInitializer {
             register("extractor", EXTRACTOR);
 
             register("refined_iron_ingot", REFINED_IRON_INGOT);
+            register("refined_copper_ingot", REFINED_COPPER_INGOT);
         }
 
         private static FabricItemSettings settings(ItemGroup group) {
