@@ -1,31 +1,27 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "spacefactory",
   "version": "${version}",
-
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Space Factory",
+  "description": "Tech mod",
   "authors": [
-    "Me!"
+    "Reoseah"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://reoseah.github.io/space-factory/",
+    "sources": "https://github.com/Reoseah/space-factory"
   },
-
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
-
+  "license": "CC0",
+  "icon": "assets/spacefactory/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "io.github.reoseah.spacefactory.SF"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "spacefactory.mixins.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",
@@ -33,6 +29,5 @@
     "java": ">=17"
   },
   "suggests": {
-    "another-mod": "*"
   }
 }

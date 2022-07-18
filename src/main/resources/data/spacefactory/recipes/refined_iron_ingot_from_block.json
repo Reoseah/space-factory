@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "spacefactory:refined_iron_block"
+    }
+  ],
+  "result": {
+    "item": "spacefactory:refined_iron_ingot",
+    "count": 9
+  }
+}
