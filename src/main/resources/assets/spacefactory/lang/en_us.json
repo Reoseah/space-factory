@@ -1,8 +1,14 @@
 {
-  "itemGroup.spacefactory.technology": "Space Factory Technology",
-  "block.spacefactory.generator": "Fuel Generator",
+  "spacefactory": "Space Factory",
+  "spacefactory.technology": "Technology",
+  "itemGroup.spacefactory.technology": "Space Factory - Technology",
+  "block.spacefactory.generator": "Solid Fuel Generator",
   "block.spacefactory.solar_panel": "Solar Panel",
+  "block.spacefactory.electric_furnace": "Electric Furnace",
+  "block.spacefactory.grinder": "Grinding Mill",
+  "block.spacefactory.extractor": "Extractor",
   "item.spacefactory.refined_iron_ingot": "Refined Iron Ingot",
-  "itemGroup.spacefactory.decoration": "Space Factory Decoration",
+  "spacefactory.decoration": "Decoration",
+  "itemGroup.spacefactory.decoration": "Space Factory - Decoration",
   "block.spacefactory.refined_iron_block": "Block of Refined Iron"
 }
