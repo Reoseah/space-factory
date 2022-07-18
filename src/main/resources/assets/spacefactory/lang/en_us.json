@@ -1,8 +1,8 @@
 {
   "itemGroup.spacefactory.technology": "Space Factory Technology",
+  "block.spacefactory.generator": "Fuel Generator",
+  "block.spacefactory.solar_panel": "Solar Panel",
+  "item.spacefactory.refined_iron_ingot": "Refined Iron Ingot",
   "itemGroup.spacefactory.decoration": "Space Factory Decoration",
-
-  "block.spacefactory.refined_iron_block": "Block of Refined Iron",
-
-  "item.spacefactory.refined_iron_ingot": "Refined Iron Ingot"
+  "block.spacefactory.refined_iron_block": "Block of Refined Iron"
 }
