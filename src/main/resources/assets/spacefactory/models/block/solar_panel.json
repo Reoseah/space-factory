@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "top": "spacefactory:block/solar_panel",
-    "side": "spacefactory:block/generator_side",
+    "side": "spacefactory:block/generator_back",
     "bottom": "spacefactory:block/machine_bottom"
   }
 }

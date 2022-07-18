@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,lit=false": {
+      "model": "spacefactory:block/grinder"
+    },
+    "facing=east,lit=false": {
+      "model": "spacefactory:block/grinder",
+      "y": 90
+    },
+    "facing=south,lit=false": {
+      "model": "spacefactory:block/grinder",
+      "y": 180
+    },
+    "facing=west,lit=false": {
+      "model": "spacefactory:block/grinder",
+      "y": 270
+    },
+    "facing=north,lit=true": {
+      "model": "spacefactory:block/grinder_on"
+    },
+    "facing=east,lit=true": {
+      "model": "spacefactory:block/grinder_on",
+      "y": 90
+    },
+    "facing=south,lit=true": {
+      "model": "spacefactory:block/grinder_on",
+      "y": 180
+    },
+    "facing=west,lit=true": {
+      "model": "spacefactory:block/grinder_on",
+      "y": 270
+    }
+  }
+}
