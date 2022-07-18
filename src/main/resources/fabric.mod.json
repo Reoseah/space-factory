@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.reoseah.spacefactory.SF"
+      "io.github.reoseah.spacefactory.SpaceFactory"
     ]
   },
   "mixins": [

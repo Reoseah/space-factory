@@ -1,6 +1,6 @@
 package io.github.reoseah.spacefactory.mixin.client;
 
-import io.github.reoseah.spacefactory.SF;
+import io.github.reoseah.spacefactory.SpaceFactory;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
@@ -27,7 +27,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
 
     @Inject(at = @At("HEAD"), method = "renderTabTooltipIfHovered", cancellable = true)
     private void renderSpaceFactoryTooltips(MatrixStack matrices, ItemGroup group, int mouseX, int mouseY, CallbackInfoReturnable<Boolean> cir) {
-        if (group == SF.TECHNOLOGY || group == SF.DECORATION) {
+        if (group == SpaceFactory.TECHNOLOGY || group == SpaceFactory.DECORATION) {
             int column = group.getColumn();
             int x = 28 * column;
             int y = 0;

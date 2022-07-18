@@ -7,6 +7,7 @@ import io.github.reoseah.spacefactory.feature.machine.grinder.GrinderBlock;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
@@ -22,7 +23,7 @@ import net.minecraft.util.registry.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SF implements ModInitializer {
+public class SpaceFactory implements ModInitializer {
     public static final String ID = "spacefactory";
     public static final Logger LOGGER = LoggerFactory.getLogger(ID);
     public static final ItemGroup TECHNOLOGY = FabricItemGroupBuilder.build(id("technology"), () -> new ItemStack(Items.REFINED_IRON_INGOT));
@@ -41,14 +42,27 @@ public class SF implements ModInitializer {
     }
 
     public static class Blocks {
-        public static final Block GENERATOR = new GeneratorBlock(AbstractBlock.Settings.of(Material.METAL).strength(3F).sounds(BlockSoundGroup.METAL).luminance(state -> state.get(Properties.LIT) ? 14 : 0));
-        public static final Block SOLAR_PANEL = new SolarPanelBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.BLUE).strength(3F).sounds(BlockSoundGroup.METAL));
+        public static class Materials {
+            /**
+             * Machine material. Having luminance > 0 on machines won't disable ambient occlusion.
+             *
+             * @see io.github.reoseah.spacefactory.mixin.client.BlockRenderInfoMixin
+             */
+            public static final Material MACHINE = new FabricMaterialBuilder(MapColor.IRON_GRAY).build();
+        }
 
-        public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(AbstractBlock.Settings.of(Material.METAL).strength(3F).sounds(BlockSoundGroup.METAL).luminance(state -> state.get(Properties.LIT) ? 13 : 0));
-        public static final Block GRINDER = new GrinderBlock(AbstractBlock.Settings.of(Material.METAL).strength(3F).sounds(BlockSoundGroup.METAL));
-        public static final Block EXTRACTOR = new GrinderBlock(AbstractBlock.Settings.of(Material.METAL).strength(3F).sounds(BlockSoundGroup.METAL));
+        public static final Block GENERATOR = new GeneratorBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 14 : 0));
+        public static final Block SOLAR_PANEL = new SolarPanelBlock(machineSettings().mapColor(MapColor.BLUE));
+
+        public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block GRINDER = new GrinderBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block EXTRACTOR = new GrinderBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
 
         public static final Block REFINED_IRON_BLOCK = new Block(AbstractBlock.Settings.of(Material.METAL).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
+
+        private static AbstractBlock.Settings machineSettings() {
+            return AbstractBlock.Settings.of(Materials.MACHINE).strength(3F).sounds(BlockSoundGroup.METAL);
+        }
 
         public static void register() {
             register("refined_iron_block", REFINED_IRON_BLOCK);
