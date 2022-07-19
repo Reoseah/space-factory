@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "spacefactory:refined_iron_ingot"
+    "spacefactory:refined_iron_ingot",
+    "spacefactory:refined_copper_ingot"
   ]
 }

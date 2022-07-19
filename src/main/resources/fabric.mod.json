@@ -17,6 +17,9 @@
   "entrypoints": {
     "main": [
       "io.github.reoseah.spacefactory.SpaceFactory"
+    ],
+    "client": [
+      "io.github.reoseah.spacefactory.SpaceFactoryClient"
     ]
   },
   "mixins": [

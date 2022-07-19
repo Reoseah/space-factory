@@ -3,19 +3,29 @@ package io.github.reoseah.spacefactory;
 import io.github.reoseah.spacefactory.feature.generator.fuel.GeneratorBlock;
 import io.github.reoseah.spacefactory.feature.generator.solar.SolarPanelBlock;
 import io.github.reoseah.spacefactory.feature.machine.electric_furnace.ElectricFurnaceBlock;
+import io.github.reoseah.spacefactory.feature.machine.extractor.ExtractorBlock;
 import io.github.reoseah.spacefactory.feature.machine.grinder.GrinderBlock;
+import io.github.reoseah.spacefactory.feature.machine.grinder.GrinderBlockEntity;
+import io.github.reoseah.spacefactory.feature.machine.grinder.GrinderScreenHandler;
+import io.github.reoseah.spacefactory.feature.machine.grinder.GrindingRecipe;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
@@ -34,7 +44,11 @@ public class SpaceFactory implements ModInitializer {
         LOGGER.info("initializing {}", ID);
 
         Blocks.register();
+        BlockEntityTypes.register();
         Items.register();
+        ScreenHandlerTypes.register();
+        RecipeTypes.register();
+        RecipeSerializers.register();
     }
 
     public static Identifier id(String path) {
@@ -56,23 +70,25 @@ public class SpaceFactory implements ModInitializer {
 
         public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
         public static final Block GRINDER = new GrinderBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
-        public static final Block EXTRACTOR = new GrinderBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block EXTRACTOR = new ExtractorBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
 
         public static final Block REFINED_IRON_BLOCK = new Block(AbstractBlock.Settings.of(Material.METAL, MapColor.WHITE_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
+        public static final Block REFINED_COPPER_BLOCK = new Block(AbstractBlock.Settings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
 
         private static AbstractBlock.Settings machineSettings() {
             return AbstractBlock.Settings.of(Materials.MACHINE).strength(3F).sounds(BlockSoundGroup.METAL);
         }
 
         public static void register() {
-            register("refined_iron_block", REFINED_IRON_BLOCK);
-
             register("generator", GENERATOR);
             register("solar_panel", SOLAR_PANEL);
 
             register("electric_furnace", ELECTRIC_FURNACE);
             register("grinder", GRINDER);
             register("extractor", EXTRACTOR);
+
+            register("refined_iron_block", REFINED_IRON_BLOCK);
+            register("refined_copper_block", REFINED_COPPER_BLOCK);
         }
 
         private static void register(String name, Block entry) {
@@ -91,9 +107,9 @@ public class SpaceFactory implements ModInitializer {
         public static final Item REFINED_COPPER_INGOT = new Item(settings(TECHNOLOGY));
 
         public static final Item REFINED_IRON_BLOCK = new BlockItem(Blocks.REFINED_IRON_BLOCK, settings(DECORATION));
+        public static final Item REFINED_COPPER_BLOCK = new BlockItem(Blocks.REFINED_COPPER_BLOCK, settings(DECORATION));
 
         public static void register() {
-            register("refined_iron_block", REFINED_IRON_BLOCK);
             register("generator", GENERATOR);
             register("solar_panel", SOLAR_PANEL);
 
@@ -103,6 +119,9 @@ public class SpaceFactory implements ModInitializer {
 
             register("refined_iron_ingot", REFINED_IRON_INGOT);
             register("refined_copper_ingot", REFINED_COPPER_INGOT);
+
+            register("refined_iron_block", REFINED_IRON_BLOCK);
+            register("refined_copper_block", REFINED_COPPER_BLOCK);
         }
 
         private static FabricItemSettings settings(ItemGroup group) {
@@ -111,6 +130,69 @@ public class SpaceFactory implements ModInitializer {
 
         private static void register(String name, Item entry) {
             Registry.register(Registry.ITEM, id(name), entry);
+        }
+    }
+
+
+    public static class BlockEntityTypes {
+        public static final BlockEntityType<GrinderBlockEntity> GRINDER = FabricBlockEntityTypeBuilder.create(GrinderBlockEntity::new, Blocks.GRINDER).build();
+
+        public static void register() {
+            register("grinder", GRINDER);
+        }
+
+        private static void register(String name, BlockEntityType<?> entry) {
+            Registry.register(Registry.BLOCK_ENTITY_TYPE, id(name), entry);
+        }
+    }
+
+    public static class ScreenHandlerTypes {
+        public static final ScreenHandlerType<GrinderScreenHandler.Client> GRINDER = new ScreenHandlerType<>(GrinderScreenHandler.Client::new);
+
+        public static void register() {
+            register("grinder", GRINDER);
+        }
+
+        private static void register(String name, ScreenHandlerType<?> entry) {
+            Registry.register(Registry.SCREEN_HANDLER, id(name), entry);
+        }
+    }
+
+
+    public static class RecipeTypes {
+        public static final RecipeType<GrindingRecipe> GRINDING = new SpaceFactoryType<>("squeezing");
+
+        public static void register() {
+            register("grinding", GRINDING);
+        }
+
+        private static void register(String name, RecipeType<?> entry) {
+            Registry.register(Registry.RECIPE_TYPE, id(name), entry);
+        }
+
+        private static final class SpaceFactoryType<T extends Recipe<?>> implements RecipeType<T> {
+            private final String name;
+
+            private SpaceFactoryType(String name) {
+                this.name = name;
+            }
+
+            @Override
+            public String toString() {
+                return ID + ":" + this.name;
+            }
+        }
+    }
+
+    public static class RecipeSerializers {
+        public static final RecipeSerializer<GrindingRecipe> GRINDING = new GrindingRecipe.Serializer();
+
+        public static void register() {
+            register("grinding", GRINDING);
+        }
+
+        private static void register(String name, RecipeSerializer<?> entry) {
+            Registry.register(Registry.RECIPE_SERIALIZER, id(name), entry);
         }
     }
 }

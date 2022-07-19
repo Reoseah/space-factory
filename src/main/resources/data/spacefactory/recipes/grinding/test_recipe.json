@@ -1,0 +1,11 @@
+{
+  "type": "spacefactory:grinding",
+  "ingredient": {
+    "item": "minecraft:diamond"
+  },
+  "energy": 2000,
+  "output": {
+    "item": "minecraft:coal",
+    "count": 2
+  }
+}
