@@ -12,5 +12,6 @@
   "spacefactory.decoration": "Decoration",
   "itemGroup.spacefactory.decoration": "Space Factory - Decoration",
   "block.spacefactory.refined_iron_block": "Block of Refined Iron",
-  "block.spacefactory.refined_copper_block": "Block of Refined Copper"
+  "block.spacefactory.refined_copper_block": "Block of Refined Copper",
+  "container.spacefactory.grinder": "Grinding Mill"
 }

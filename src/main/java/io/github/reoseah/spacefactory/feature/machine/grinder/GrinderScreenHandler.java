@@ -2,6 +2,8 @@ package io.github.reoseah.spacefactory.feature.machine.grinder;
 
 import io.github.reoseah.spacefactory.SpaceFactory;
 import io.github.reoseah.spacefactory.common.screen.OutputSlot;
+import io.github.reoseah.spacefactory.common.screen.ReceiverProperty;
+import io.github.reoseah.spacefactory.common.screen.SenderProperty;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -49,12 +51,39 @@ public abstract class GrinderScreenHandler extends ScreenHandler {
     public static class Server extends GrinderScreenHandler {
         public Server(int syncId, GrinderBlockEntity inventory, PlayerInventory playerInventory) {
             super(syncId, inventory, playerInventory);
+
+            this.addProperty(new SenderProperty(() -> inventory.energy));
+            this.addProperty(new SenderProperty(() -> inventory.progress));
+            this.addProperty(new SenderProperty(() -> inventory.lastRecipe != null && inventory.lastRecipe.isPresent() ? inventory.lastRecipe.get().energy : 0));
         }
     }
 
     public static class Client extends GrinderScreenHandler {
+        private int energy;
+        private int progress, total;
+
         public Client(int syncId, PlayerInventory playerInventory) {
             super(syncId, new SimpleInventory(GrinderProps.SLOTS), playerInventory);
+            this.addProperty(new ReceiverProperty(value -> this.energy = value));
+            this.addProperty(new ReceiverProperty(value -> this.progress = value));
+            this.addProperty(new ReceiverProperty(value -> this.total = value));
+        }
+
+        public int getEnergy() {
+            return this.energy;
+        }
+
+        public int getEnergyDisplay() {
+            return this.energy * 20 / GrinderProps.CAPACITY;
+        }
+
+        public int getProgress() {
+            return this.progress;
+        }
+
+        public int getProgressDisplay() {
+            int duration = this.total == 0 ? 1000 : this.total;
+            return this.progress * 24 / duration;
         }
     }
 }

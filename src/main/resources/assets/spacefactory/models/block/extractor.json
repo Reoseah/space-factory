@@ -10,10 +10,10 @@
   "textures": {
     "particle": "spacefactory:block/extractor_front",
     "down": "spacefactory:block/machine_bottom",
-    "up": "spacefactory:block/machine",
+    "up": "spacefactory:block/extractor_top",
     "north": "spacefactory:block/extractor_front",
-    "east": "spacefactory:block/extractor_side",
-    "south": "spacefactory:block/machine",
-    "west": "spacefactory:block/extractor_side"
+    "east": "spacefactory:block/extractor_right",
+    "south": "spacefactory:block/electric_furnace_back",
+    "west": "spacefactory:block/extractor_left"
   }
 }

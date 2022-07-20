@@ -74,7 +74,7 @@ public class GrinderBlockEntity extends InventoryBlockEntity {
 
     public static void tickServer(World world, @SuppressWarnings("unused") BlockPos pos, @SuppressWarnings("unused") BlockState state, GrinderBlockEntity be) {
         // FIXME test
-        be.energy = 40;
+        be.energy = GrinderProps.CAPACITY / 2;
 
         if (be.lastRecipe == null) {
             be.lastRecipe = world.getRecipeManager().getFirstMatch(SpaceFactory.RecipeTypes.GRINDING, be, world);
@@ -83,7 +83,7 @@ public class GrinderBlockEntity extends InventoryBlockEntity {
 
         if (recipe != null && be.canAcceptRecipeOutput(recipe)) {
             if (be.energy >= 1) {
-                int progress = Math.min(recipe.energy - be.progress, be.energy);
+                int progress = Math.min(recipe.energy - be.progress, Math.min(be.energy, GrinderProps.CONSUMPTION));
                 be.progress += progress;
                 be.energy -= progress;
                 if (be.progress >= recipe.energy) {
@@ -115,7 +115,7 @@ public class GrinderBlockEntity extends InventoryBlockEntity {
 
         for (int i = 0; i < recipe.outputs.length && i < 4; i++) {
             if (Objects.requireNonNull(this.world).random.nextFloat() <= recipe.outputs[i].rightFloat()) {
-                this.acceptStack(GrinderProps.OUTPUT_SLOTS_START + i, recipe.outputs[i].left());
+                this.acceptStack(GrinderProps.OUTPUT_SLOTS_START + i, recipe.outputs[i].left().copy());
             }
         }
     }
