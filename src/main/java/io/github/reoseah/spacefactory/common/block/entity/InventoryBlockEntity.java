@@ -11,12 +11,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.text.Text;
-import net.minecraft.util.Nameable;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class InventoryBlockEntity extends BlockEntity implements Inventory, Nameable, NamedScreenHandlerFactory {
+public abstract class InventoryBlockEntity extends BlockEntity implements Inventory, Renameable, NamedScreenHandlerFactory {
     protected final DefaultedList<ItemStack> slots;
     protected Text customName;
 
@@ -94,7 +93,6 @@ public abstract class InventoryBlockEntity extends BlockEntity implements Invent
     }
     // endregion
 
-
     protected boolean canAcceptStack(int slot, ItemStack offer) {
         ItemStack stackInSlot = this.getStack(slot);
         if (stackInSlot.isEmpty() || offer.isEmpty()) {
@@ -115,6 +113,7 @@ public abstract class InventoryBlockEntity extends BlockEntity implements Invent
     }
 
     // region Nameable & NamedScreenHandlerFactory
+    @Override
     public void setCustomName(Text customName) {
         this.customName = customName;
     }

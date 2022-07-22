@@ -12,8 +12,8 @@
     "down": "spacefactory:block/machine_bottom",
     "up": "spacefactory:block/extractor_top",
     "north": "spacefactory:block/extractor_front_on",
-    "east": "spacefactory:block/extractor_right",
+    "east": "spacefactory:block/extractor_left",
     "south": "spacefactory:block/electric_furnace_back",
-    "west": "spacefactory:block/extractor_left"
+    "west": "spacefactory:block/extractor_right"
   }
 }

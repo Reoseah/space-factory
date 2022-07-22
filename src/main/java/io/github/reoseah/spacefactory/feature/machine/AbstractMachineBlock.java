@@ -1,6 +1,7 @@
 package io.github.reoseah.spacefactory.feature.machine;
 
 import io.github.reoseah.spacefactory.common.block.entity.InventoryBlockEntity;
+import io.github.reoseah.spacefactory.common.block.entity.Renameable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -61,7 +62,7 @@ public abstract class AbstractMachineBlock extends BlockWithEntity {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         BlockEntity entity = world.getBlockEntity(pos);
-        if (stack.hasCustomName() && entity instanceof InventoryBlockEntity inventory) {
+        if (stack.hasCustomName() && entity instanceof Renameable inventory) {
             inventory.setCustomName(stack.getName());
         }
     }

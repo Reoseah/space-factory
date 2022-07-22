@@ -45,9 +45,9 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler.Client> {
             this.drawTexture(matrices, leftX + 11, topY + 44 - energy, 176, 38 - energy, 14, energy + 1);
         }
 
-        int recipeArrowProgress = this.handler.getProgressDisplay();
         if (this.handler.getProgress() > 0) {
-            this.drawTexture(matrices, leftX + 70, topY + 34, 176, 0, recipeArrowProgress + 1, 16);
+            int progress = this.handler.getProgressDisplay();
+            this.drawTexture(matrices, leftX + 70, topY + 35, 176, 0, progress + 1, 16);
         }
     }
 }

@@ -12,8 +12,8 @@
     "down": "spacefactory:block/machine_bottom",
     "up": "spacefactory:block/machine",
     "north": "spacefactory:block/grinder_front_on",
-    "east": "spacefactory:block/machine_side",
-    "south": "spacefactory:block/machine",
-    "west": "spacefactory:block/machine_side"
+    "east": "spacefactory:block/grinder_left",
+    "south": "spacefactory:block/electric_furnace_back",
+    "west": "spacefactory:block/grinder_right"
   }
 }

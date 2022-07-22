@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -62,9 +63,9 @@ public class GrinderBlockEntity extends InventoryBlockEntity {
         if (slot == GrinderProps.INPUT_SLOT) {
             ItemStack current = this.slots.get(slot);
 
-            boolean lessThenRecipe = this.lastRecipe != null && this.lastRecipe.isPresent() && this.lastRecipe.get().input.count > newStack.getCount();
+            boolean lessThenCurrentRecipe = this.lastRecipe != null && this.lastRecipe.isPresent() && this.lastRecipe.get().input.count > newStack.getCount();
 
-            if (newStack.isEmpty() || current.isEmpty() || !ItemStack.canCombine(current, newStack) || lessThenRecipe) {
+            if (newStack.isEmpty() || current.isEmpty() || !ItemStack.canCombine(current, newStack) || lessThenCurrentRecipe) {
                 this.lastRecipe = null;
                 this.progress = 0;
             }
@@ -76,6 +77,9 @@ public class GrinderBlockEntity extends InventoryBlockEntity {
         // FIXME test
         be.energy = GrinderProps.CAPACITY / 2;
 
+        boolean wasActive = state.get(Properties.LIT);
+        boolean active = false;
+
         if (be.lastRecipe == null) {
             be.lastRecipe = world.getRecipeManager().getFirstMatch(SpaceFactory.RecipeTypes.GRINDING, be, world);
         }
@@ -83,6 +87,7 @@ public class GrinderBlockEntity extends InventoryBlockEntity {
 
         if (recipe != null && be.canAcceptRecipeOutput(recipe)) {
             if (be.energy >= 1) {
+                active = true;
                 int progress = Math.min(recipe.energy - be.progress, Math.min(be.energy, GrinderProps.CONSUMPTION));
                 be.progress += progress;
                 be.energy -= progress;
@@ -91,10 +96,16 @@ public class GrinderBlockEntity extends InventoryBlockEntity {
                     be.progress = 0;
                 }
                 be.markDirty();
+            } else {
+                active = false;
             }
         } else if (be.progress > 0) {
             be.progress = 0;
+            active = false;
             be.markDirty();
+        }
+        if (wasActive != active) {
+            world.setBlockState(pos, state.with(Properties.LIT, active), 3);
         }
     }
 

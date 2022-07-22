@@ -17,14 +17,16 @@ import net.minecraft.world.World;
 public class GrindingRecipe implements Recipe<Inventory> {
     protected final Identifier id;
     public final IngredientCount input;
-    protected final ObjectFloatPair<ItemStack>[] outputs;
+    public final ObjectFloatPair<ItemStack>[] outputs;
     public final int energy;
+    public final float experience;
 
-    public GrindingRecipe(Identifier id, IngredientCount input, ObjectFloatPair<ItemStack>[] outputs, int energy) {
+    public GrindingRecipe(Identifier id, IngredientCount input, ObjectFloatPair<ItemStack>[] outputs, int energy, float experience) {
         this.id = id;
         this.input = input;
         this.outputs = outputs;
         this.energy = energy;
+        this.experience = experience;
     }
 
     @Override
@@ -95,7 +97,9 @@ public class GrindingRecipe implements Recipe<Inventory> {
                 }
             }
 
-            return new GrindingRecipe(identifier, input, outputs, energy);
+            float experience = JsonHelper.getFloat(json, "experience", 0.0F);
+
+            return new GrindingRecipe(identifier, input, outputs, energy, experience);
         }
 
         @Override
@@ -109,8 +113,9 @@ public class GrindingRecipe implements Recipe<Inventory> {
                 float chance = buf.readFloat();
                 outputs[i] = ObjectFloatPair.of(stack, chance);
             }
+            float experience = buf.readFloat();
 
-            return new GrindingRecipe(identifier, input, outputs, energy);
+            return new GrindingRecipe(identifier, input, outputs, energy, experience);
         }
 
         @Override
@@ -122,6 +127,7 @@ public class GrindingRecipe implements Recipe<Inventory> {
                 buf.writeItemStack(output.left());
                 buf.writeFloat(output.rightFloat());
             }
+            buf.writeFloat(recipe.experience);
         }
     }
 }
