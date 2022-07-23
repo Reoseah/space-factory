@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "spacefactory:item/nano_steel_machete"
+  }
+}

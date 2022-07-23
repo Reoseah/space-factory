@@ -4,7 +4,7 @@
     "item": "spacefactory:rubber_root"
   },
   "energy": 1000,
-  "output": [
+  "result": [
     {
       "item": "spacefactory:raw_rubber",
       "chance": 0.75

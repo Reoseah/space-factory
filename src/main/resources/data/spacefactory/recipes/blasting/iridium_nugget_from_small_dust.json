@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "spacefactory:small_iridium_dust"
+  },
+  "result": "spacefactory:iridium_nugget"
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "c:raw_iridium_ores"
+  },
+  "result": "spacefactory:iridium_ingot",
+  "experience": 5
+}

@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:grinding",
+  "ingredient": {
+    "item": "minecraft:gold_ingot"
+  },
+  "result": {
+    "item": "spacefactory:gold_dust"
+  }
+}

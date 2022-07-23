@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:grinding",
+  "ingredient": {
+    "item": "minecraft:copper_ingot"
+  },
+  "result": {
+    "item": "spacefactory:copper_dust"
+  }
+}

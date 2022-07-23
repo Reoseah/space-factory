@@ -81,13 +81,13 @@ public class GrindingRecipe implements Recipe<Inventory> {
             int energy = JsonHelper.getInt(json, "energy", 2000);
 
             ObjectFloatPair<ItemStack>[] outputs;
-            if (JsonHelper.hasJsonObject(json, "output")) {
-                JsonObject outputJson = json.getAsJsonObject("output");
+            if (JsonHelper.hasJsonObject(json, "result")) {
+                JsonObject outputJson = json.getAsJsonObject("result");
                 ItemStack stack = ShapedRecipe.outputFromJson(outputJson);
                 float chance = JsonHelper.getFloat(outputJson, "chance", 1.0F);
                 outputs = new ObjectFloatPair[]{ObjectFloatPair.of(stack, chance)};
             } else {
-                JsonArray outputJson = JsonHelper.getArray(json, "output");
+                JsonArray outputJson = JsonHelper.getArray(json, "result");
                 outputs = new ObjectFloatPair[outputJson.size()];
                 for (int i = 0; i < outputs.length; i++) {
                     JsonObject output = outputJson.get(i).getAsJsonObject();

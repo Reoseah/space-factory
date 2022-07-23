@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:grinding",
+  "ingredient": {
+    "item": "minecraft:ender_pearl"
+  },
+  "result": {
+    "item": "spacefactory:ender_pearl_dust"
+  }
+}

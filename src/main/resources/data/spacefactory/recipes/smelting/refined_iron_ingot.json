@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "spacefactory:refined_iron_dust"
+  },
+  "result": "spacefactory:refined_iron_ingot",
+  "experience": 0
+}

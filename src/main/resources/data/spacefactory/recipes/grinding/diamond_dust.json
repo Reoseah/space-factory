@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:grinding",
+  "ingredient": {
+    "tag": "c:diamonds"
+  },
+  "result": {
+    "item": "spacefactory:diamond_dust"
+  }
+}

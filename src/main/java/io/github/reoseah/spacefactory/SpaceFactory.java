@@ -31,6 +31,7 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,6 +127,39 @@ public class SpaceFactory implements ModInitializer {
         public static final Item RUBBER_ROOT = new Item(settings(TECHNOLOGY));
         public static final Item RAW_RUBBER = new Item(settings(TECHNOLOGY));
 
+        public static final Item RUBBER = new Item(settings(TECHNOLOGY));
+        public static final Item CAMOUFLAGE_CLOTH = new Item(settings(TECHNOLOGY));
+
+        public static final Item NANO_STEEL_INGOT = new Item(settings(TECHNOLOGY).rarity(Rarity.RARE));
+        public static final Item IRIDIUM_INGOT = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
+
+        public static final Item RAW_IRIDIUM = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
+
+        public static final Item COPPER_NUGGET = new Item(settings(TECHNOLOGY));
+        public static final Item IRIDIUM_NUGGET = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
+
+        public static final Item STONE_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item COAL_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item COPPER_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item IRON_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item GOLD_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item DIAMOND_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item ENDER_PEARL_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item NETHERITE_SCRAP_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item NETHER_QUARTZ_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item REFINED_IRON_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item REFINED_COPPER_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item IRIDIUM_DUST = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
+
+        public static final Item SMALL_IRIDIUM_DUST = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
+
+        public static final Item CIRCUIT = new Item(settings(TECHNOLOGY));
+        public static final Item SILICON_INGOT = new Item(settings(TECHNOLOGY));
+
+//        public static final Item COPPER_WIRE = new BlockItem(Blocks.COPPER_WIRE, settings());
+//        public static final Item COPPER_CABLE = new BlockItem(Blocks.COPPER_CABLE, settings());
+//        public static final Item COPPER_BUS_BAR = new BlockItem(Blocks.COPPER_BUS_BAR, settings());
+
         public static final Item REFINED_IRON_BLOCK = new BlockItem(Blocks.REFINED_IRON_BLOCK, settings(DECORATION));
         public static final Item REFINED_COPPER_BLOCK = new BlockItem(Blocks.REFINED_COPPER_BLOCK, settings(DECORATION));
 
@@ -139,14 +173,45 @@ public class SpaceFactory implements ModInitializer {
             register("primitive_grinder", PRIMITIVE_GRINDER);
             register("crank", CRANK);
 
+            register("stone_dust", STONE_DUST);
+            register("coal_dust", COAL_DUST);
+            register("copper_dust", COPPER_DUST);
+            register("iron_dust", IRON_DUST);
+            register("gold_dust", GOLD_DUST);
+            register("diamond_dust", DIAMOND_DUST);
+            register("ender_pearl_dust", ENDER_PEARL_DUST);
+            register("nether_quartz_dust", NETHER_QUARTZ_DUST);
+            register("netherite_scrap_dust", NETHERITE_SCRAP_DUST);
+
+            register("copper_nugget", COPPER_NUGGET);
+
             register("refined_iron_ingot", REFINED_IRON_INGOT);
-            register("refined_copper_ingot", REFINED_COPPER_INGOT);
             register("refined_iron_nugget", REFINED_IRON_NUGGET);
+            register("refined_iron_dust", REFINED_IRON_DUST);
+
+            register("refined_copper_ingot", REFINED_COPPER_INGOT);
             register("refined_copper_nugget", REFINED_COPPER_NUGGET);
+            register("refined_copper_dust", REFINED_COPPER_DUST);
+
+            register("nano_steel_ingot", NANO_STEEL_INGOT);
+
+            register("iridium_ingot", IRIDIUM_INGOT);
+            register("iridium_nugget", IRIDIUM_NUGGET);
+            register("raw_iridium", RAW_IRIDIUM);
+            register("iridium_dust", IRIDIUM_DUST);
+            register("small_iridium_dust", SMALL_IRIDIUM_DUST);
+
+            register("silicon_ingot", SILICON_INGOT);
+
+            register("raw_rubber", RAW_RUBBER);
+            register("rubber", RUBBER);
+
+            register("camouflage_cloth", CAMOUFLAGE_CLOTH);
+
+            register("circuit", CIRCUIT);
 
             register("rubber_root_seeds", RUBBER_ROOT_SEEDS);
             register("rubber_root", RUBBER_ROOT);
-            register("raw_rubber", RAW_RUBBER);
 
             register("refined_iron_block", REFINED_IRON_BLOCK);
             register("refined_copper_block", REFINED_COPPER_BLOCK);

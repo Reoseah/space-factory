@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "spacefactory:item/refined_iron_machete"
+  }
+}

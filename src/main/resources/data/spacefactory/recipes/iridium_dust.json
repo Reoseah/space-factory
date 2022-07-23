@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "spacefactory:small_iridium_dust"
+    }
+  },
+  "result": {
+    "item": "spacefactory:iridium_dust"
+  }
+}

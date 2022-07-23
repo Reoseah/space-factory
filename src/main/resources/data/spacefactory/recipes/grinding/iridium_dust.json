@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:grinding",
+  "ingredient": {
+    "tag": "c:iridium_ingots"
+  },
+  "result": {
+    "item": "spacefactory:iridium_dust"
+  }
+}

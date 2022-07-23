@@ -16,6 +16,46 @@
   "item.spacefactory.rubber_root_seeds": "Rubber Root Seeds",
   "item.spacefactory.rubber_root": "Rubber Root",
   "item.spacefactory.raw_rubber": "Raw Rubber",
+
+  "item.spacefactory.copper_nugget": "Copper Nugget",
+  "item.spacefactory.stone_dust": "Stone Dust",
+  "item.spacefactory.coal_dust": "Coal Dust",
+  "item.spacefactory.copper_dust": "Copper Dust",
+  "item.spacefactory.iron_dust": "Iron Dust",
+  "item.spacefactory.gold_dust": "Gold Dust",
+  "item.spacefactory.diamond_dust": "Diamond Dust",
+
+  "item.spacefactory.rubber": "Rubber",
+
+  "item.spacefactory.circuit": "Circuit",
+
+  "item.spacefactory.nether_quartz_dust": "Nether Quartz Dust",
+  "item.spacefactory.silicon_ingot": "Silicon",
+
+  "item.spacefactory.refined_copper_dust": "Refined Copper Dust",
+  "item.spacefactory.refined_iron_dust": "Refined Iron Dust",
+  "item.spacefactory.refined_iron_machete": "Refined Iron Machete",
+  "item.spacefactory.refined_iron_unicutter": "Refined Iron All-Cutters",
+  "item.spacefactory.refined_iron_wrench": "Refined Iron Wrench",
+
+  "item.spacefactory.camouflage_cloth": "Camouflage Cloth",
+  "item.spacefactory.flak_vest": "Flak Vest",
+
+  "item.spacefactory.netherite_scrap_dust": "Pulverized Netherite Scrap",
+  "item.spacefactory.raw_iridium": "Raw Iridium",
+  "item.spacefactory.iridium_ingot": "Iridium Ingot",
+  "item.spacefactory.iridium_nugget": "Iridium Nugget",
+  "item.spacefactory.iridium_dust": "Iridium Dust",
+  "item.spacefactory.small_iridium_dust": "Tiny Pile of Iridium Dust",
+
+  "item.spacefactory.nano_steel_ingot": "Neosteel Ingot",
+  "item.spacefactory.nano_steel_machete": "Neosteel Machete",
+  "item.spacefactory.nano_steel_unicutter": "Neosteel All-Cutters",
+  "item.spacefactory.nano_steel_wrench": "Neosteel Wrench",
+
+  "item.spacefactory.ender_pearl_dust": "Ender Pearl Dust",
+  "item.spacefactory.warp_prism": "Warp Prism",
+
   "spacefactory.decoration": "Decoration",
   "itemGroup.spacefactory.decoration": "Space Factory - Decoration",
   "block.spacefactory.refined_iron_block": "Block of Refined Iron",

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:iridium_ingots"
+    }
+  ],
+  "result": {
+    "item": "spacefactory:iridium_nugget",
+    "count": 9
+  }
+}

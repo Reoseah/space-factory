@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "tag": "c:gold_dusts"
+  },
+  "result": "minecraft:gold_ingot"
+}
