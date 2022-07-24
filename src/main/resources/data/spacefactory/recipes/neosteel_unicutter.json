@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I I",
+    " I ",
+    "R R"
+  ],
+  "key": {
+    "I": {
+      "item": "spacefactory:neosteel_ingot"
+    },
+    "R": {
+      "tag": "c:rubbers"
+    }
+  },
+  "result": {
+    "item": "spacefactory:neosteel_unicutter"
+  }
+}

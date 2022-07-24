@@ -1,6 +1,7 @@
 package io.github.reoseah.spacefactory.feature.machine;
 
 import io.github.reoseah.spacefactory.common.block.entity.Renameable;
+import io.github.reoseah.spacefactory.feature.tool.Wrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -20,9 +21,11 @@ import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractMachineBlock extends BlockWithEntity {
+public abstract class AbstractMachineBlock extends BlockWithEntity implements Wrenchable {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty LIT = Properties.LIT;
 
@@ -89,5 +92,11 @@ public abstract class AbstractMachineBlock extends BlockWithEntity {
             }
         }
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public boolean useWrench(BlockState state, World world, BlockPos pos, Direction side, @Nullable PlayerEntity player, Hand hand, Vec3d hitPos) {
+        world.setBlockState(pos, state.cycle(FACING));
+        return true;
     }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    " # ",
+    " X "
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:copper_ingot"
+    },
+    "#": {
+      "item": "spacefactory:refined_iron_ingot"
+    }
+  },
+  "result": {
+    "item": "spacefactory:refined_iron_wrench"
+  }
+}

@@ -11,6 +11,9 @@ import io.github.reoseah.spacefactory.feature.machine.grinder.GrinderBlockEntity
 import io.github.reoseah.spacefactory.feature.machine.grinder.GrinderScreenHandler;
 import io.github.reoseah.spacefactory.feature.machine.grinder.GrindingRecipe;
 import io.github.reoseah.spacefactory.feature.primitive_grinder.*;
+import io.github.reoseah.spacefactory.feature.tool.MacheteItem;
+import io.github.reoseah.spacefactory.feature.tool.UnicutterItem;
+import io.github.reoseah.spacefactory.feature.tool.WrenchItem;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -22,15 +25,16 @@ import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.*;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -146,7 +150,7 @@ public class SpaceFactory implements ModInitializer {
 
         public static final Item SILICON_INGOT = new Item(settings(TECHNOLOGY));
 
-        public static final Item NANO_STEEL_INGOT = new Item(settings(TECHNOLOGY).rarity(Rarity.RARE));
+        public static final Item NEOSTEEL_INGOT = new Item(settings(TECHNOLOGY).rarity(Rarity.RARE));
 
         public static final Item RAW_IRIDIUM = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
         public static final Item IRIDIUM_INGOT = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
@@ -161,6 +165,14 @@ public class SpaceFactory implements ModInitializer {
 //        public static final Item COPPER_WIRE = new BlockItem(Blocks.COPPER_WIRE, settings());
 //        public static final Item COPPER_CABLE = new BlockItem(Blocks.COPPER_CABLE, settings());
 //        public static final Item COPPER_BUS_BAR = new BlockItem(Blocks.COPPER_BUS_BAR, settings());
+
+        public static final Item FLAK_VEST = new ArmorItem(ArmorMaterials.FLAK, EquipmentSlot.CHEST, settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
+        public static final Item REFINED_IRON_MACHETE = new MacheteItem(ToolMaterials.REFINED_IRON, 2, -2.2F, settings(TECHNOLOGY));
+        public static final Item REFINED_IRON_WRENCH = new WrenchItem(ToolMaterials.REFINED_IRON, 0, -1.8F, settings(TECHNOLOGY));
+        public static final Item REFINED_IRON_UNICUTTER = new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings(TECHNOLOGY).maxDamage(250));
+        public static final Item NEOSTEEL_MACHETE = new MacheteItem(ToolMaterials.NEOSTEEL, 2, -2.2F, settings(TECHNOLOGY).rarity(Rarity.RARE));
+        public static final Item NEOSTEEL_WRENCH = new WrenchItem(ToolMaterials.NEOSTEEL, 0, -1.8F, settings(TECHNOLOGY).maxDamage(700).rarity(Rarity.RARE));
+        public static final Item NEOSTEEL_UNICUTTER = new UnicutterItem(ToolMaterials.NEOSTEEL, -1, -1F, settings(TECHNOLOGY).maxDamage(700).rarity(Rarity.RARE));
 
         public static void register() {
             register("refined_iron_block", REFINED_IRON_BLOCK);
@@ -197,7 +209,7 @@ public class SpaceFactory implements ModInitializer {
             register("refined_copper_nugget", REFINED_COPPER_NUGGET);
 
             register("silicon_ingot", SILICON_INGOT);
-            register("neosteel_ingot", NANO_STEEL_INGOT);
+            register("neosteel_ingot", NEOSTEEL_INGOT);
 
             register("raw_iridium", RAW_IRIDIUM);
             register("iridium_ingot", IRIDIUM_INGOT);
@@ -208,6 +220,14 @@ public class SpaceFactory implements ModInitializer {
             register("raw_rubber", RAW_RUBBER);
             register("rubber", RUBBER);
             register("circuit", CIRCUIT);
+
+            register("flak_vest", FLAK_VEST);
+            register("refined_iron_machete", REFINED_IRON_MACHETE);
+            register("refined_iron_wrench", REFINED_IRON_WRENCH);
+            register("refined_iron_unicutter", REFINED_IRON_UNICUTTER);
+            register("neosteel_machete", NEOSTEEL_MACHETE);
+            register("neosteel_wrench", NEOSTEEL_WRENCH);
+            register("neosteel_unicutter", NEOSTEEL_UNICUTTER);
         }
 
         private static FabricItemSettings settings(ItemGroup group) {
@@ -287,6 +307,123 @@ public class SpaceFactory implements ModInitializer {
 
         private static void register(String name, RecipeSerializer<?> entry) {
             Registry.register(Registry.RECIPE_SERIALIZER, id(name), entry);
+        }
+    }
+
+    public enum ArmorMaterials implements ArmorMaterial {
+        FLAK("flak", 10, new int[]{3, 6, 8, 3}, 8, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, 0.1F, Ingredient.empty());
+
+        private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
+
+        private final String name;
+        private final int durabilityMultiplier;
+        private final int[] protectionAmounts;
+        private final int enchantability;
+        private final SoundEvent equipSound;
+        private final float toughness;
+        private final float knockbackResistance;
+        private final Ingredient repairIngredient;
+
+        ArmorMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound, float toughness, float knockbackResistance, Ingredient repairIngredient) {
+            this.name = name;
+            this.durabilityMultiplier = durabilityMultiplier;
+            this.protectionAmounts = protectionAmounts;
+            this.enchantability = enchantability;
+            this.equipSound = equipSound;
+            this.toughness = toughness;
+            this.knockbackResistance = knockbackResistance;
+            this.repairIngredient = repairIngredient;
+        }
+
+        @Override
+        public int getDurability(EquipmentSlot slot) {
+            return BASE_DURABILITY[slot.getEntitySlotId()] * this.durabilityMultiplier;
+        }
+
+        @Override
+        public int getProtectionAmount(EquipmentSlot slot) {
+            return this.protectionAmounts[slot.getEntitySlotId()];
+        }
+
+        @Override
+        public int getEnchantability() {
+            return this.enchantability;
+        }
+
+        @Override
+        public SoundEvent getEquipSound() {
+            return this.equipSound;
+        }
+
+        @Override
+        public Ingredient getRepairIngredient() {
+            return this.repairIngredient;
+        }
+
+        @Override
+        public String getName() {
+            return this.name;
+        }
+
+        @Override
+        public float getToughness() {
+            return this.toughness;
+        }
+
+        @Override
+        public float getKnockbackResistance() {
+            return this.knockbackResistance;
+        }
+    }
+
+    public enum ToolMaterials implements ToolMaterial {
+        REFINED_IRON(2, 750, 6.5F, 3F, 8, Ingredient.ofItems(Items.REFINED_IRON_INGOT)), //
+        NEOSTEEL(3, 1500, 7.5F, 4F, 0, Ingredient.ofItems(Items.NEOSTEEL_INGOT));
+
+        private final int miningLevel;
+        private final int itemDurability;
+        private final float miningSpeed;
+        private final float attackDamage;
+        private final int enchantability;
+        private final Ingredient repairIngredient;
+
+        ToolMaterials(int miningLevel, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Ingredient repairIngredient) {
+            this.miningLevel = miningLevel;
+            this.itemDurability = itemDurability;
+            this.miningSpeed = miningSpeed;
+            this.attackDamage = attackDamage;
+            this.enchantability = enchantability;
+            this.repairIngredient = repairIngredient;
+        }
+
+        @Override
+        public int getDurability() {
+            return this.itemDurability;
+        }
+
+        @Override
+        public float getMiningSpeedMultiplier() {
+            return this.miningSpeed;
+        }
+
+        @Override
+        public float getAttackDamage() {
+            return this.attackDamage;
+        }
+
+        @Override
+        public int getMiningLevel() {
+            return this.miningLevel;
+        }
+
+        @Override
+        public int getEnchantability() {
+            return this.enchantability;
+        }
+
+        @Override
+        public Ingredient getRepairIngredient() {
+            return this.repairIngredient;
         }
     }
 }

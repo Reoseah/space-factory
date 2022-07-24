@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "spacefactory:neosteel_block"
+    }
+  ],
+  "result": {
+    "item": "spacefactory:neosteel_ingot",
+    "count": 9
+  }
+}
