@@ -63,7 +63,7 @@ public abstract class GrinderScreenHandler extends ScreenHandler {
         private int progress, total;
 
         public Client(int syncId, PlayerInventory playerInventory) {
-            super(syncId, new SimpleInventory(GrinderProps.SLOTS), playerInventory);
+            super(syncId, new SimpleInventory(GrinderProps.INVENTORY_SIZE), playerInventory);
             this.addProperty(new ReceiverProperty(value -> this.energy = value));
             this.addProperty(new ReceiverProperty(value -> this.progress = value));
             this.addProperty(new ReceiverProperty(value -> this.total = value));

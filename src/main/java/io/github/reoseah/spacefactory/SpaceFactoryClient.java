@@ -13,8 +13,6 @@ import net.minecraft.client.render.RenderLayer;
 public class SpaceFactoryClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(), SpaceFactory.Blocks.RUBBER_ROOT);
-
         BlockEntityRendererRegistry.register(SpaceFactory.BlockEntityTypes.CRANK, CrankBlockEntityRenderer::new);
 
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);

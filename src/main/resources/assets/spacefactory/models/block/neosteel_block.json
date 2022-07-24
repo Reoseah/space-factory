@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "spacefactory:block/refined_iron_block"
+    "all": "spacefactory:block/neosteel_block"
   }
 }

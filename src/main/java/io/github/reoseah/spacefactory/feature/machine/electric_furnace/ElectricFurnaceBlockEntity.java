@@ -5,6 +5,7 @@ import io.github.reoseah.spacefactory.common.block.entity.InventoryBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeType;
@@ -13,13 +14,14 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "OptionalAssignedToNull"})
-public class ElectricFurnaceBlockEntity extends InventoryBlockEntity {
+public class ElectricFurnaceBlockEntity extends InventoryBlockEntity implements SidedInventory {
     protected int energy;
     protected @Nullable Optional<SmeltingRecipe> lastRecipe = null;
     protected int progress;
@@ -30,7 +32,7 @@ public class ElectricFurnaceBlockEntity extends InventoryBlockEntity {
 
     @Override
     protected DefaultedList<ItemStack> createSlotsList() {
-        return DefaultedList.ofSize(ElectricFurnaceProps.SLOTS, ItemStack.EMPTY);
+        return DefaultedList.ofSize(ElectricFurnaceProps.INVENTORY_SIZE, ItemStack.EMPTY);
     }
 
     @Override
@@ -108,5 +110,20 @@ public class ElectricFurnaceBlockEntity extends InventoryBlockEntity {
         this.setStack(ElectricFurnaceProps.INPUT_SLOT, input);
 
         this.acceptStack(ElectricFurnaceProps.OUTPUT_SLOT, recipe.craft(this));
+    }
+
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return ElectricFurnaceProps.SLOTS;
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return slot == ElectricFurnaceProps.INPUT_SLOT;
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return slot == ElectricFurnaceProps.OUTPUT_SLOT;
     }
 }

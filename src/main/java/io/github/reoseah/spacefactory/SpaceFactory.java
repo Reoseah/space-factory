@@ -11,7 +11,6 @@ import io.github.reoseah.spacefactory.feature.machine.grinder.GrinderBlockEntity
 import io.github.reoseah.spacefactory.feature.machine.grinder.GrinderScreenHandler;
 import io.github.reoseah.spacefactory.feature.machine.grinder.GrindingRecipe;
 import io.github.reoseah.spacefactory.feature.primitive_grinder.*;
-import io.github.reoseah.spacefactory.feature.rubber_root.RubberRootBlock;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -23,7 +22,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -67,41 +69,38 @@ public class SpaceFactory implements ModInitializer {
              */
             public static final Material MACHINE = new FabricMaterialBuilder(MapColor.WHITE_GRAY).build();
         }
-
-        public static final Block GENERATOR = new GeneratorBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 14 : 0));
-        public static final Block SOLAR_PANEL = new SolarPanelBlock(machineSettings().mapColor(MapColor.BLUE));
-
-        public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
-        public static final Block GRINDER = new GrinderBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
-        public static final Block EXTRACTOR = new ExtractorBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block REFINED_IRON_BLOCK = new Block(AbstractBlock.Settings.of(Material.METAL, MapColor.WHITE_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
+        public static final Block REFINED_COPPER_BLOCK = new Block(AbstractBlock.Settings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
+        public static final Block NEOSTEEL_BLOCK = new Block(FabricBlockSettings.of(Material.METAL, MapColor.DARK_AQUA).strength(7F, 15F).sounds(BlockSoundGroup.METAL));
+        public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL, MapColor.WHITE).strength(7F, 15F).sounds(BlockSoundGroup.METAL));
 
         public static final Block PRIMITIVE_GRINDER = new PrimitiveGrinderBlock(FabricBlockSettings.of(Material.STONE).strength(3.5F, 3.5F));
         public static final Block CRANK = new CrankBlock(FabricBlockSettings.of(Material.WOOD, MapColor.CLEAR).strength(2.0F, 2.0F));
 
-        public static final Block REFINED_IRON_BLOCK = new Block(AbstractBlock.Settings.of(Material.METAL, MapColor.WHITE_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
-        public static final Block REFINED_COPPER_BLOCK = new Block(AbstractBlock.Settings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
-
-        public static final Block RUBBER_ROOT = new RubberRootBlock(AbstractBlock.Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP));
+        public static final Block GENERATOR = new GeneratorBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 14 : 0));
+        public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block GRINDER = new GrinderBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block EXTRACTOR = new ExtractorBlock(machineSettings().luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block SOLAR_PANEL = new SolarPanelBlock(machineSettings().mapColor(MapColor.BLUE));
 
         private static AbstractBlock.Settings machineSettings() {
             return AbstractBlock.Settings.of(Materials.MACHINE).strength(3F).sounds(BlockSoundGroup.METAL);
         }
 
         public static void register() {
-            register("generator", GENERATOR);
-            register("solar_panel", SOLAR_PANEL);
-
-            register("electric_furnace", ELECTRIC_FURNACE);
-            register("grinder", GRINDER);
-            register("extractor", EXTRACTOR);
+            register("refined_iron_block", REFINED_IRON_BLOCK);
+            register("refined_copper_block", REFINED_COPPER_BLOCK);
+            register("neosteel_block", NEOSTEEL_BLOCK);
+            register("iridium_block", IRIDIUM_BLOCK);
 
             register("primitive_grinder", PRIMITIVE_GRINDER);
             register("crank", CRANK);
 
-            register("refined_iron_block", REFINED_IRON_BLOCK);
-            register("refined_copper_block", REFINED_COPPER_BLOCK);
-
-            register("rubber_root", RUBBER_ROOT);
+            register("generator", GENERATOR);
+            register("electric_furnace", ELECTRIC_FURNACE);
+            register("grinder", GRINDER);
+            register("extractor", EXTRACTOR);
+            register("solar_panel", SOLAR_PANEL);
         }
 
         private static void register(String name, Block entry) {
@@ -110,33 +109,21 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public static class Items {
-        public static final Item GENERATOR = new BlockItem(Blocks.GENERATOR, settings(TECHNOLOGY));
-        public static final Item SOLAR_PANEL = new BlockItem(Blocks.SOLAR_PANEL, settings(TECHNOLOGY));
-        public static final Item ELECTRIC_FURNACE = new BlockItem(Blocks.ELECTRIC_FURNACE, settings(TECHNOLOGY));
-        public static final Item GRINDER = new BlockItem(Blocks.GRINDER, settings(TECHNOLOGY));
-        public static final Item EXTRACTOR = new BlockItem(Blocks.EXTRACTOR, settings(TECHNOLOGY));
+        public static final Item REFINED_IRON_BLOCK = new BlockItem(Blocks.REFINED_IRON_BLOCK, settings(DECORATION));
+        public static final Item REFINED_COPPER_BLOCK = new BlockItem(Blocks.REFINED_COPPER_BLOCK, settings(DECORATION));
+        public static final Item NEOSTEEL_BLOCK = new BlockItem(Blocks.NEOSTEEL_BLOCK, settings(DECORATION).rarity(Rarity.RARE));
+        public static final Item IRIDIUM_BLOCK = new BlockItem(Blocks.IRIDIUM_BLOCK, settings(DECORATION).rarity(Rarity.UNCOMMON));
+
         public static final Item PRIMITIVE_GRINDER = new BlockItem(Blocks.PRIMITIVE_GRINDER, settings(TECHNOLOGY));
         public static final Item CRANK = new BlockItem(Blocks.CRANK, settings(TECHNOLOGY));
 
-        public static final Item REFINED_IRON_INGOT = new Item(settings(TECHNOLOGY));
-        public static final Item REFINED_COPPER_INGOT = new Item(settings(TECHNOLOGY));
-        public static final Item REFINED_IRON_NUGGET = new Item(settings(TECHNOLOGY));
-        public static final Item REFINED_COPPER_NUGGET = new Item(settings(TECHNOLOGY));
-
-        public static final Item RUBBER_ROOT_SEEDS = new AliasedBlockItem(Blocks.RUBBER_ROOT, settings(TECHNOLOGY));
-        public static final Item RUBBER_ROOT = new Item(settings(TECHNOLOGY));
-        public static final Item RAW_RUBBER = new Item(settings(TECHNOLOGY));
-
-        public static final Item RUBBER = new Item(settings(TECHNOLOGY));
-        public static final Item CAMOUFLAGE_CLOTH = new Item(settings(TECHNOLOGY));
-
-        public static final Item NANO_STEEL_INGOT = new Item(settings(TECHNOLOGY).rarity(Rarity.RARE));
-        public static final Item IRIDIUM_INGOT = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
-
-        public static final Item RAW_IRIDIUM = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
+        public static final Item GENERATOR = new BlockItem(Blocks.GENERATOR, settings(TECHNOLOGY));
+        public static final Item ELECTRIC_FURNACE = new BlockItem(Blocks.ELECTRIC_FURNACE, settings(TECHNOLOGY));
+        public static final Item GRINDER = new BlockItem(Blocks.GRINDER, settings(TECHNOLOGY));
+        public static final Item EXTRACTOR = new BlockItem(Blocks.EXTRACTOR, settings(TECHNOLOGY));
+        public static final Item SOLAR_PANEL = new BlockItem(Blocks.SOLAR_PANEL, settings(TECHNOLOGY));
 
         public static final Item COPPER_NUGGET = new Item(settings(TECHNOLOGY));
-        public static final Item IRIDIUM_NUGGET = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
 
         public static final Item STONE_DUST = new Item(settings(TECHNOLOGY));
         public static final Item COAL_DUST = new Item(settings(TECHNOLOGY));
@@ -147,31 +134,48 @@ public class SpaceFactory implements ModInitializer {
         public static final Item ENDER_PEARL_DUST = new Item(settings(TECHNOLOGY));
         public static final Item NETHERITE_SCRAP_DUST = new Item(settings(TECHNOLOGY));
         public static final Item NETHER_QUARTZ_DUST = new Item(settings(TECHNOLOGY));
-        public static final Item REFINED_IRON_DUST = new Item(settings(TECHNOLOGY));
-        public static final Item REFINED_COPPER_DUST = new Item(settings(TECHNOLOGY));
-        public static final Item IRIDIUM_DUST = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
 
+        public static final Item REFINED_IRON_INGOT = new Item(settings(TECHNOLOGY));
+        public static final Item REFINED_IRON_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item REFINED_IRON_NUGGET = new Item(settings(TECHNOLOGY));
+
+        public static final Item REFINED_COPPER_INGOT = new Item(settings(TECHNOLOGY));
+        public static final Item REFINED_COPPER_DUST = new Item(settings(TECHNOLOGY));
+        public static final Item REFINED_COPPER_NUGGET = new Item(settings(TECHNOLOGY));
+
+        public static final Item SILICON_INGOT = new Item(settings(TECHNOLOGY));
+
+        public static final Item NANO_STEEL_INGOT = new Item(settings(TECHNOLOGY).rarity(Rarity.RARE));
+
+        public static final Item RAW_IRIDIUM = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
+        public static final Item IRIDIUM_INGOT = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
+        public static final Item IRIDIUM_DUST = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
+        public static final Item IRIDIUM_NUGGET = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
         public static final Item SMALL_IRIDIUM_DUST = new Item(settings(TECHNOLOGY).rarity(Rarity.UNCOMMON));
 
+        public static final Item RAW_RUBBER = new Item(settings(TECHNOLOGY));
+        public static final Item RUBBER = new Item(settings(TECHNOLOGY));
         public static final Item CIRCUIT = new Item(settings(TECHNOLOGY));
-        public static final Item SILICON_INGOT = new Item(settings(TECHNOLOGY));
 
 //        public static final Item COPPER_WIRE = new BlockItem(Blocks.COPPER_WIRE, settings());
 //        public static final Item COPPER_CABLE = new BlockItem(Blocks.COPPER_CABLE, settings());
 //        public static final Item COPPER_BUS_BAR = new BlockItem(Blocks.COPPER_BUS_BAR, settings());
 
-        public static final Item REFINED_IRON_BLOCK = new BlockItem(Blocks.REFINED_IRON_BLOCK, settings(DECORATION));
-        public static final Item REFINED_COPPER_BLOCK = new BlockItem(Blocks.REFINED_COPPER_BLOCK, settings(DECORATION));
-
         public static void register() {
-            register("generator", GENERATOR);
-            register("solar_panel", SOLAR_PANEL);
+            register("refined_iron_block", REFINED_IRON_BLOCK);
+            register("refined_copper_block", REFINED_COPPER_BLOCK);
+            register("neosteel_block", NEOSTEEL_BLOCK);
+            register("iridium_block", IRIDIUM_BLOCK);
 
+            register("primitive_grinder", PRIMITIVE_GRINDER);
+            register("crank", CRANK);
+            register("generator", GENERATOR);
             register("electric_furnace", ELECTRIC_FURNACE);
             register("grinder", GRINDER);
             register("extractor", EXTRACTOR);
-            register("primitive_grinder", PRIMITIVE_GRINDER);
-            register("crank", CRANK);
+            register("solar_panel", SOLAR_PANEL);
+
+            register("copper_nugget", COPPER_NUGGET);
 
             register("stone_dust", STONE_DUST);
             register("coal_dust", COAL_DUST);
@@ -180,41 +184,29 @@ public class SpaceFactory implements ModInitializer {
             register("gold_dust", GOLD_DUST);
             register("diamond_dust", DIAMOND_DUST);
             register("ender_pearl_dust", ENDER_PEARL_DUST);
-            register("nether_quartz_dust", NETHER_QUARTZ_DUST);
             register("netherite_scrap_dust", NETHERITE_SCRAP_DUST);
-
-            register("copper_nugget", COPPER_NUGGET);
+            register("nether_quartz_dust", NETHER_QUARTZ_DUST);
 
             register("refined_iron_ingot", REFINED_IRON_INGOT);
-            register("refined_iron_nugget", REFINED_IRON_NUGGET);
             register("refined_iron_dust", REFINED_IRON_DUST);
+            register("refined_iron_nugget", REFINED_IRON_NUGGET);
 
             register("refined_copper_ingot", REFINED_COPPER_INGOT);
-            register("refined_copper_nugget", REFINED_COPPER_NUGGET);
             register("refined_copper_dust", REFINED_COPPER_DUST);
-
-            register("nano_steel_ingot", NANO_STEEL_INGOT);
-
-            register("iridium_ingot", IRIDIUM_INGOT);
-            register("iridium_nugget", IRIDIUM_NUGGET);
-            register("raw_iridium", RAW_IRIDIUM);
-            register("iridium_dust", IRIDIUM_DUST);
-            register("small_iridium_dust", SMALL_IRIDIUM_DUST);
+            register("refined_copper_nugget", REFINED_COPPER_NUGGET);
 
             register("silicon_ingot", SILICON_INGOT);
+            register("nano_steel_ingot", NANO_STEEL_INGOT);
+
+            register("raw_iridium", RAW_IRIDIUM);
+            register("iridium_ingot", IRIDIUM_INGOT);
+            register("iridium_dust", IRIDIUM_DUST);
+            register("iridium_nugget", IRIDIUM_NUGGET);
+            register("small_iridium_dust", SMALL_IRIDIUM_DUST);
 
             register("raw_rubber", RAW_RUBBER);
             register("rubber", RUBBER);
-
-            register("camouflage_cloth", CAMOUFLAGE_CLOTH);
-
             register("circuit", CIRCUIT);
-
-            register("rubber_root_seeds", RUBBER_ROOT_SEEDS);
-            register("rubber_root", RUBBER_ROOT);
-
-            register("refined_iron_block", REFINED_IRON_BLOCK);
-            register("refined_copper_block", REFINED_COPPER_BLOCK);
         }
 
         private static FabricItemSettings settings(ItemGroup group) {
@@ -227,16 +219,16 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public static class BlockEntityTypes {
-        public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = FabricBlockEntityTypeBuilder.create(ElectricFurnaceBlockEntity::new, Blocks.ELECTRIC_FURNACE).build();
-        public static final BlockEntityType<GrinderBlockEntity> GRINDER = FabricBlockEntityTypeBuilder.create(GrinderBlockEntity::new, Blocks.GRINDER).build();
         public static final BlockEntityType<PrimitiveGrinderBlockEntity> PRIMITIVE_GRINDER = FabricBlockEntityTypeBuilder.create(PrimitiveGrinderBlockEntity::new, Blocks.PRIMITIVE_GRINDER).build();
         public static final BlockEntityType<CrankBlockEntity> CRANK = FabricBlockEntityTypeBuilder.create(CrankBlockEntity::new, Blocks.CRANK).build();
+        public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = FabricBlockEntityTypeBuilder.create(ElectricFurnaceBlockEntity::new, Blocks.ELECTRIC_FURNACE).build();
+        public static final BlockEntityType<GrinderBlockEntity> GRINDER = FabricBlockEntityTypeBuilder.create(GrinderBlockEntity::new, Blocks.GRINDER).build();
 
         public static void register() {
-            register("electric_furnace", ELECTRIC_FURNACE);
-            register("grinder", GRINDER);
             register("primitive_grinder", PRIMITIVE_GRINDER);
             register("crank", CRANK);
+            register("electric_furnace", ELECTRIC_FURNACE);
+            register("grinder", GRINDER);
         }
 
         private static void register(String name, BlockEntityType<?> entry) {

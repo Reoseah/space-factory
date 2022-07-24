@@ -5,6 +5,7 @@ import io.github.reoseah.spacefactory.common.block.entity.InventoryBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
@@ -12,6 +13,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,7 +21,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "OptionalAssignedToNull"})
-public class GrinderBlockEntity extends InventoryBlockEntity {
+public class GrinderBlockEntity extends InventoryBlockEntity implements SidedInventory {
     protected int energy;
     protected @Nullable Optional<GrindingRecipe> lastRecipe = null;
     protected int progress;
@@ -30,7 +32,7 @@ public class GrinderBlockEntity extends InventoryBlockEntity {
 
     @Override
     protected DefaultedList<ItemStack> createSlotsList() {
-        return DefaultedList.ofSize(GrinderProps.SLOTS, ItemStack.EMPTY);
+        return DefaultedList.ofSize(GrinderProps.INVENTORY_SIZE, ItemStack.EMPTY);
     }
 
     @Override
@@ -129,5 +131,20 @@ public class GrinderBlockEntity extends InventoryBlockEntity {
                 this.acceptStack(GrinderProps.OUTPUT_SLOTS_START + i, recipe.outputs[i].left().copy());
             }
         }
+    }
+
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return GrinderProps.SLOTS;
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return slot == GrinderProps.INPUT_SLOT;
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return slot >= GrinderProps.OUTPUT_SLOTS_START;
     }
 }
