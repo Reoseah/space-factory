@@ -1,6 +1,5 @@
 package io.github.reoseah.spacefactory.feature.machine;
 
-import io.github.reoseah.spacefactory.common.block.entity.InventoryBlockEntity;
 import io.github.reoseah.spacefactory.common.block.entity.Renameable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;

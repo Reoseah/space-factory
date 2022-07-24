@@ -69,6 +69,7 @@ public class SpaceFactory implements ModInitializer {
              */
             public static final Material MACHINE = new FabricMaterialBuilder(MapColor.WHITE_GRAY).build();
         }
+
         public static final Block REFINED_IRON_BLOCK = new Block(AbstractBlock.Settings.of(Material.METAL, MapColor.WHITE_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
         public static final Block REFINED_COPPER_BLOCK = new Block(AbstractBlock.Settings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
         public static final Block NEOSTEEL_BLOCK = new Block(FabricBlockSettings.of(Material.METAL, MapColor.DARK_AQUA).strength(7F, 15F).sounds(BlockSoundGroup.METAL));

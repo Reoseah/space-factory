@@ -2,7 +2,6 @@ package io.github.reoseah.spacefactory.feature.machine.electric_furnace;
 
 import io.github.reoseah.spacefactory.SpaceFactory;
 import io.github.reoseah.spacefactory.feature.machine.AbstractMachineBlock;
-import io.github.reoseah.spacefactory.feature.machine.grinder.GrinderBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;

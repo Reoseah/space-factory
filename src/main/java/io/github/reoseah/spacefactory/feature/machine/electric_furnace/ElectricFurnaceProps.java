@@ -8,7 +8,7 @@ public class ElectricFurnaceProps {
     static final int OUTPUT_SLOT = 2;
 
     static final int[] SLOTS = {0, 2};
-    
+
     static final int CAPACITY = 10000;
     static final int CONSUMPTION = 10;
 }

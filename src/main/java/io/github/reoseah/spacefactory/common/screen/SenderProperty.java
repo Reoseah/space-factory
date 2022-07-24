@@ -20,19 +20,19 @@ import java.util.function.IntSupplier;
  * </pre>
  */
 public class SenderProperty extends Property {
-	protected final IntSupplier supplier;
+    protected final IntSupplier supplier;
 
-	public SenderProperty(IntSupplier supplier) {
-		this.supplier = supplier;
-	}
+    public SenderProperty(IntSupplier supplier) {
+        this.supplier = supplier;
+    }
 
-	@Override
-	public int get() {
-		return this.supplier.getAsInt();
-	}
+    @Override
+    public int get() {
+        return this.supplier.getAsInt();
+    }
 
-	@Override
-	public void set(int value) {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public void set(int value) {
+        throw new UnsupportedOperationException();
+    }
 }

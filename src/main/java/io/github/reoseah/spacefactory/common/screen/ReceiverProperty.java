@@ -10,19 +10,19 @@ import java.util.function.IntConsumer;
  * @see SenderProperty
  */
 public class ReceiverProperty extends Property {
-	protected final IntConsumer consumer;
+    protected final IntConsumer consumer;
 
-	public ReceiverProperty(IntConsumer consumer) {
-		this.consumer = consumer;
-	}
+    public ReceiverProperty(IntConsumer consumer) {
+        this.consumer = consumer;
+    }
 
-	@Override
-	public void set(int value) {
-		this.consumer.accept(value);
-	}
+    @Override
+    public void set(int value) {
+        this.consumer.accept(value);
+    }
 
-	@Override
-	public int get() {
-		return 0;
-	}
+    @Override
+    public int get() {
+        return 0;
+    }
 }
