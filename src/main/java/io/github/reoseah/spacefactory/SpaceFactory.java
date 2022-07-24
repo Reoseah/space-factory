@@ -196,7 +196,7 @@ public class SpaceFactory implements ModInitializer {
             register("refined_copper_nugget", REFINED_COPPER_NUGGET);
 
             register("silicon_ingot", SILICON_INGOT);
-            register("nano_steel_ingot", NANO_STEEL_INGOT);
+            register("neosteel_ingot", NANO_STEEL_INGOT);
 
             register("raw_iridium", RAW_IRIDIUM);
             register("iridium_ingot", IRIDIUM_INGOT);
